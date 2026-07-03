@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHANTOM LARP - Store</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #333;
+            background-color: #ffffff;
+        }
+
+        .global-nav {
+            background-color: #262522;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            width: 100%;
+        }
+
+        .nav-logo {
+            color: #f7ede2;
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        .nav-right-container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .lang-selector select {
+            background-color: transparent;
+            color: #f7ede2;
+            border: 1px solid #555;
+            padding: 4px 8px;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            border-radius: 4px;
+        }
+        .lang-selector select option {
+            background-color: #262522;
+            color: #f7ede2;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: #f7ede2;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .nav-icons svg:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .banner-container {
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        .banner-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .store-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            font-size: 14px;
+        }
+
+        .product-count {
+            color: #555;
+        }
+
+        .sort-filter select {
+            padding: 8px 35px 8px 12px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M0 0l5 5 5-5z' fill='%23333'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px 20px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .product-image-wrapper {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background-color: #f7f7f7;
+            margin-bottom: 15px;
+        }
+
+        .product-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image-wrapper img {
+            transform: scale(1.03);
+        }
+
+        .product-title {
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+            line-height: 1.4;
+            color: #1a1a1a;
+        }
+
+        .product-price {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .player-separator {
+            border-top: 1px solid #e0e0e0;
+            margin: 40px 0;
+            width: 100%;
+        }
+
+        .audio-player-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #262522;
+            color: #f7ede2;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .player-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .play-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ff3333;
+            transition: background-color 0.2s;
+        }
+
+        .play-btn:hover {
+            background-color: #cc2929;
+        }
+
+        .play-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #f7ede2;
+        }
+
+        .timeline-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-display {
+            font-size: 11px;
+            font-family: monospace;
+            min-width: 35px;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: #555;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff3333;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 110px;
+        }
+
+        .volume-container svg {
+            width: 16px;
+            height: 16px;
+            fill: #f7ede2;
+        }
+
+        .volume-container .slider {
+            width: 70px;
+        }
+
+        .audio-caption {
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+            margin: 12px auto 60px auto;
+            letter-spacing: 0.5px;
+        }
+
+        .artist-link {
+            color: #ff3333;
+            text-decoration: none;
+            font-weight: bold;
+            font-style: italic;
+            transition: opacity 0.2s;
+        }
+
+        .artist-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .rich-check-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .rich-check-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .rich-check-text {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            text-transform: lowercase;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: #ff3333;
+            margin-bottom: 15px;
+        }
+
+        .rich-check-subtext {
+            font-size: 13px;
+            font-family: system-ui, sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .site-footer {
+            border-top: 1px solid #e0e0e0;
+            padding: 60px 40px 30px 40px;
+            font-size: 13px;
+            color: #444;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-columns {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            color: #222;
+        }
+
+        .footer-column p, 
+        .footer-column ul {
+            list-style: none;
+            line-height: 2.2;
+        }
+
+        .footer-column a {
+            color: #444;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: #000;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            font-size: 11px;
+            color: #777;
+        }
+
+        @media (max-width: 900px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px 15px;
+            }
+            .global-nav {
+                padding: 0 20px;
+            }
+            .footer-columns {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px 20px;
+            }
+            .rich-check-text {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .footer-columns {
+                grid-template-columns: 1fr;
+            }
+            .player-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .volume-container {
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="rich-check-overlay" id="rich-overlay">
+        <div class="rich-check-text" id="overlay-text">nah ur not that rich to get it sorry</div>
+        <div class="rich-check-subtext" id="overlay-subtext">click anywhere to return lol</div>
+    </div>
+
+    <nav class="global-nav">
+        <div class="nav-logo">LARPMADE</div>
+        <div class="nav-right-container">
+            <div class="lang-selector">
+                <select id="lang-switch">
+                    <option value="en">EN</option>
+                    <option value="ru">RU</option>
+                </select>
+            </div>
+            <div class="nav-icons">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>PHANTOM LARP</h1>
+        </header>
+
+        <div class="banner-container">
+            <img src="banner.png" alt="Phantom Larp Banner Image">
+        </div>
+
+        <div class="store-controls">
+            <div class="product-count" id="prod-count-text">7 products</div>
+            <div class="sort-filter">
+                <select name="sort" id="sort">
+                    <option value="featured" id="opt-featured">Featured</option>
+                    <option value="best-selling" id="opt-bestselling">Best selling</option>
+                    <option value="price-low-high" id="opt-lowhigh">Price, low to high</option>
+                    <option value="price-high-low" id="opt-highlow">Price, high to low</option>
+                </select>
+            </div>
+        </div>
+
+        <main class="product-grid" id="product-container"></main>
+
+        <div class="player-separator"></div>
+
+        <div class="audio-player-container">
+            <audio id="audio-element" src="larpshot.ogg" preload="metadata"></audio>
+            
+            <div class="player-controls">
+                <button class="play-btn" id="play-btn" aria-label="Play">
+                    <svg id="play-icon" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                </button>
+                
+                <div class="timeline-container">
+                    <span class="time-display" id="current-time">0:00</span>
+                    <input type="range" class="slider" id="seek-slider" value="0" max="100">
+                    <span class="time-display" id="duration">0:00</span>
+                </div>
+
+                <div class="volume-container">
+                    <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    <input type="range" class="slider" id="volume-slider" value="80" max="100">
+                </div>
+            </div>
+        </div>
+        
+        <div class="audio-caption">
+            <span id="caption-by" style="color: #777; font-style: italic;">SONG 'LARPSHOT' by</span> 
+            <a href="https://www.youtube.com/@SoulBoyfriendAMONGUSAMONGUS" target="_blank" class="artist-link">SOUL AMONGUS~</a>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-columns">
+            <div class="footer-column">
+                <h3 id="foot-title-brand">LARPMADE</h3>
+                <p>2552 Barrington Ct</p>
+                <p>Hayward, CA 94545</p>
+            </div>
+            <div class="footer-column">
+                <h3 id="foot-title-support">Support</h3>
+                <ul>
+                    <li><a href="#" id="returns-refunds-btn">Returns & Refunds</a></li>
+                    <li><a href="#" id="faq-btn">Frequently Asked Questions</a></li>
+                    <li><a href="#" id="find-order-btn">Find my order</a></li>
+                    <li><a href="#" id="contact-btn">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>For Creators</h3>
+                <ul>
+                    <li><a href="#" id="make-store-btn">Make A Store</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 id="foot-title-policies">Policies</h3>
+                <ul>
+                    <li><a href="#" id="foot-tos">Terms of Service</a></li>
+                    <li><a href="#" id="foot-privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            &copy; Larpmade 2026
+        </div>
+    </footer>
+
+    <script>
+        const USD_TO_RUB_RATE = 90.0;
+
+        const langData = {
+            en: {
+                prodCount: "7 products",
+                optFeatured: "Featured",
+                optBestselling: "Best selling",
+                optLowHigh: "Price, low to high",
+                optHighLow: "Price, high to low",
+                captionBy: "SONG 'LARPSHOT' by",
+                footSupport: "Support",
+                footCreators: "For Creators",
+                footPolicies: "Policies",
+                btnReturns: "Returns & Refunds",
+                btnFaq: "Frequently Asked Questions",
+                btnFindOrder: "Find my order",
+                btnContact: "Contact Us",
+                btnMakeStore: "Make A Store",
+                btnTos: "Terms of Service",
+                btnPrivacy: "Privacy Policy",
+                overlayReturn: "click anywhere to return lol",
+                
+                ovDefaultProduct: "nah ur not that rich to get it sorry",
+                ovReturns: "you can't refund or return anything",
+                ovFaqText: "Q: why are you here if you can't afford anything?",
+                ovFaqSub: "A: because looking is free, unlike these shirts. now click to go back.",
+                ovFindOrder: "yo order is in Antarctica being delivered by Skipper",
+                ovContact: "you cannot, or watch my youtube larprruption videos idk lol",
+                ovMakeStore: "why would you create a shop if there's phantom larp's shop?",
+
+                p1: "EVIL BOYFRIEND SHIRT",
+                p2: "EVIL BOYFRIEND IDLE SHIRT",
+                p3: "EVIL GIRLFRIEND IDLE SHIRT",
+                p4: "(NEW DESIGN!!!) EVIL GIRLFRIEND IDLE SHIRT",
+                p5: "LARPMATCH DRESS",
+                p6: "LARPTRACTOR COFFEE CUP",
+                p7: "LARPTRACTOR DOUBLE SIDED WHITE MUG"
+            },
+            ru: {
+                prodCount: "7 товаров",
+                optFeatured: "Рекомендуемые",
+                optBestselling: "Хиты продаж",
+                optLowHigh: "Цена, по возрастанию",
+                optHighLow: "Цена, по убыванию",
+                captionBy: "ПЕСНЯ 'LARPSHOT' от",
+                footSupport: "Поддержка",
+                footCreators: "Авторам",
+                footPolicies: "Правила",
+                btnReturns: "Возвраты и возмещение",
+                btnFaq: "Часто задаваемые вопросы",
+                btnFindOrder: "Найти мой заказ",
+                btnContact: "Связаться с нами",
+                btnMakeStore: "Создать магазин",
+                btnTos: "Условия использования",
+                btnPrivacy: "Политика конфиденциальности",
+                overlayReturn: "кликни в любое место, чтобы вернуться лол",
+                
+                ovDefaultProduct: "нее, ты недостаточно богат чтобы купить это сорян",
+                ovReturns: "ты ничего не сможешь вернуть или обменять",
+                ovFaqText: "В: почему ты здесь, если ничего не можешь себе позволить?",
+                ovFaqSub: "О: потому что смотреть можно бесплатно, в отличие от этих футболок. теперь кликай обратно.",
+                ovFindOrder: "твой заказ в Антарктиде, его доставляет Шкипер",
+                ovContact: "никак нельзя, или посмотри мои видосы по larprruption на ютубе хз лол",
+                ovMakeStore: "зачем тебе создавать магазин, если уже есть phantom larp's shop?",
+
+                p1: "EVIL BOYFRIEND ФУТБОЛКА",
+                p2: "EVIL BOYFRIEND IDLE ФУТБОЛКА",
+                p3: "EVIL GIRLFRIEND IDLE ФУТБОЛКА",
+                p4: "(НОВЫЙ ДИЗАЙН!!!) EVIL GIRLFRIEND IDLE ФУТБОЛКА",
+                p5: "LARPMATCH ПЛАТЬЕ",
+                p6: "LARPTRACTOR КОФЕЙНАЯ ЧАШКА",
+                p7: "LARPTRACTOR ДВУСТОРОННЯЯ БЕЛАЯ КРУЖКА"
+            }
+        };
+
+        let currentLang = 'en';
+
+        const originalProducts = [
+            { id: 1, nameKey: "p1", basePriceUSD: 257.99, image: "EVILBFWHITESHIRT.png" },
+            { id: 2, nameKey: "p2", basePriceUSD: 28175.99, image: "EVILBFIDLEWHITESHIRT.png" },
+            { id: 3, nameKey: "p3", basePriceUSD: 372177.99, image: "EVILGFBLACKSHIRT.png" },
+            { id: 4, nameKey: "p4", basePriceUSD: 37472188.99, image: "NEWEVILGFBLACKSHIRT.png" },
+            { id: 5, nameKey: "p5", basePriceUSD: 172.99, image: "LARPMATCHDRESS.png" },
+            { id: 6, nameKey: "p6", basePriceUSD: 176476277176.99, image: "EVILPICOCOFFEECUP.png" },
+            { id: 7, nameKey: "p7", basePriceUSD: 149.99, image: "EVILPICOMUG.png" }
+        ];
+
+        let displayedProducts = [...originalProducts];
+
+        const container = document.getElementById('product-container');
+        const sortSelect = document.getElementById('sort');
+        const langSwitch = document.getElementById('lang-switch');
+        const overlay = document.getElementById('rich-overlay');
+        const overlayText = document.getElementById('overlay-text');
+        const overlaySubtext = document.getElementById('overlay-subtext');
+        
+        const returnsRefundsBtn = document.getElementById('returns-refunds-btn');
+        const faqBtn = document.getElementById('faq-btn');
+        const findOrderBtn = document.getElementById('find-order-btn');
+        const contactBtn = document.getElementById('contact-btn');
+        const makeStoreBtn = document.getElementById('make-store-btn');
+
+        const audio = document.getElementById('audio-element');
+        const playBtn = document.getElementById('play-btn');
+        const playIcon = document.getElementById('play-icon');
+        const seekSlider = document.getElementById('seek-slider');
+        const volumeSlider = document.getElementById('volume-slider');
+        const currentTimeDisplay = document.getElementById('current-time');
+        const durationDisplay = document.getElementById('duration');
+
+        function formatPrice(value) {
+            if (currentLang === 'ru') {
+                const rubValue = value * USD_TO_RUB_RATE;
+                return rubValue.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ₽";
+            } else {
+                return "$" + value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            }
+        }
+
+        function renderProducts(productsList) {
+            container.innerHTML = "";
+            productsList.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                const translatedName = langData[currentLang][product.nameKey] || product.nameKey;
+                const formattedPrice = formatPrice(product.basePriceUSD);
+
+                card.innerHTML = `
+                    <div class="product-image-wrapper">
+                        <img src="${product.image}" alt="${translatedName}" onerror="this.style.backgroundColor='#eaeaea';">
+                    </div>
+                    <div class="product-title">${translatedName}</div>
+                    <div class="product-price">${formattedPrice}</div>
+                `;
+                
+                card.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    overlayText.textContent = langData[currentLang].ovDefaultProduct;
+                    overlaySubtext.textContent = langData[currentLang].overlayReturn;
+                    overlay.classList.add('active');
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        function applyLocalization(lang) {
+            currentLang = lang;
+            const dict = langData[lang];
+
+            document.getElementById('prod-count-text').textContent = dict.prodCount;
+            document.getElementById('opt-featured').textContent = dict.optFeatured;
+            document.getElementById('opt-bestselling').textContent = dict.optBestselling;
+            document.getElementById('opt-lowhigh').textContent = dict.optLowHigh;
+            document.getElementById('opt-highlow').textContent = dict.optHighLow;
+            document.getElementById('caption-by').textContent = dict.captionBy;
+
+            document.getElementById('foot-title-support').textContent = dict.footSupport;
+            document.getElementById('foot-title-policies').textContent = dict.footPolicies;
+
+            returnsRefundsBtn.textContent = dict.btnReturns;
+            faqBtn.textContent = dict.btnFaq;
+            findOrderBtn.textContent = dict.btnFindOrder;
+            contactBtn.textContent = dict.btnContact;
+            makeStoreBtn.textContent = dict.btnMakeStore;
+            document.getElementById('foot-tos').textContent = dict.btnTos;
+            document.getElementById('foot-privacy').textContent = dict.btnPrivacy;
+
+            renderProducts(displayedProducts);
+        }
+
+        langSwitch.addEventListener('change', (e) => {
+            applyLocalization(e.target.value);
+        });
+
+        function formatTime(secs) {
+            const minutes = Math.floor(secs / 60);
+            const seconds = Math.floor(secs % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playIcon.innerHTML = `<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>`;
+            } else {
+                audio.pause();
+                playIcon.innerHTML = `<polygon points="5 3 19 12 5 21 5 3"></polygon>`;
+            }
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            seekSlider.max = Math.floor(audio.duration);
+            durationDisplay.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            if (!seekSlider.classList.contains('user-seeking')) {
+                seekSlider.value = Math.floor(audio.currentTime);
+            }
+            currentTimeDisplay.textContent = formatTime(audio.currentTime);
+        });
+
+        seekSlider.addEventListener('input', () => {
+            seekSlider.classList.add('user-seeking');
+            currentTimeDisplay.textContent = formatTime(seekSlider.value);
+        });
+
+        seekSlider.addEventListener('change', () => {
+            audio.currentTime = seekSlider.value;
+            seekSlider.classList.remove('user-seeking');
+        });
+
+        volumeSlider.addEventListener('input', (e) => {
+            audio.volume = e.target.value / 100;
+        });
+
+        audio.volume = volumeSlider.value / 100;
+
+        overlay.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+
+        returnsRefundsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlayText.textContent = langData[currentLang].ovReturns;
+            overlaySubtext.textContent = langData[currentLang].overlayReturn;
+            overlay.classList.add('active');
+        });
+
+        faqBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlayText.textContent = langData[currentLang].ovFaqText;
+            overlaySubtext.textContent = langData[currentLang].ovFaqSub;
+            overlay.classList.add('active');
+        });
+
+        findOrderBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlayText.textContent = langData[currentLang].ovFindOrder;
+            overlaySubtext.textContent = langData[currentLang].overlayReturn;
+            overlay.classList.add('active');
+        });
+
+        contactBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlayText.textContent = langData[currentLang].ovContact;
+            overlaySubtext.textContent = langData[currentLang].overlayReturn;
+            overlay.classList.add('active');
+        });
+
+        makeStoreBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            overlayText.textContent = langData[currentLang].ovMakeStore;
+            overlaySubtext.textContent = langData[currentLang].overlayReturn;
+            overlay.classList.add('active');
+        });
+
+        sortSelect.addEventListener('change', (e) => {
+            const criteria = e.target.value;
+
+            if (criteria === 'featured') {
+                displayedProducts = [...originalProducts];
+            } else if (criteria === 'best-selling') {
+                displayedProducts.sort((a, b) => b.id - a.id);
+            } else if (criteria === 'price-low-high') {
+                displayedProducts.sort((a, b) => a.basePriceUSD - b.basePriceUSD);
+            } else if (criteria === 'price-high-low') {
+                displayedProducts.sort((a, b) => b.basePriceUSD - a.basePriceUSD);
+            }
+
+            renderProducts(displayedProducts);
+        });
+
+        applyLocalization('en');
+    </script>
+</body>
+</html>
