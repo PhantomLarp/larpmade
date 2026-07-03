@@ -107,12 +107,26 @@
         .banner-container {
             width: 100%;
             margin-bottom: 40px;
+            overflow: hidden; /* Keeps the scaling image contained */
+            border-radius: 4px;
+        }
+
+        .banner-container a {
+            display: block;
+            width: 100%;
+            height: auto;
         }
 
         .banner-container img {
             width: 100%;
             height: auto;
             display: block;
+            transition: transform 0.3s ease; /* Smooth transition for sizing animation */
+        }
+
+        /* Hover effect to make the banner a little bigger */
+        .banner-container a:hover img {
+            transform: scale(1.02); 
         }
 
         .store-controls {
@@ -500,7 +514,9 @@
         </header>
 
         <div class="banner-container">
-            <img src="banner.png" alt="Phantom Larp Banner Image">
+            <a href="https://www.youtube.com/@PhantomLarpYT" target="_blank">
+                <img src="banner.png" alt="Phantom Larp Banner Image">
+            </a>
         </div>
 
         <div class="store-controls">
