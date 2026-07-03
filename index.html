@@ -182,6 +182,20 @@
         .product-price {
             font-size: 12px;
             color: #666;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .price-original {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .price-discounted {
+            color: #ff3333;
+            font-weight: bold;
         }
 
         .player-separator {
@@ -525,7 +539,7 @@
         </div>
 
         <div class="gameplay-link-container">
-            <a href="https://www.youtube.com/watch?v=iMbXBBaLJ48" target="_blank" class="gameplay-link" id="gameplay-text">CLICK ON THIS TEXT TO WATCH THE GAMEPLAY</a>
+            <a href="https://www.youtube.com/watch?v=iMbXBBaLJ48" target="_blank" class="gameplay-link" id="gameplay-text">CLICK ON THIS TEXT IF YOU WANT TO SEE THE GAMEPLAY</a>
         </div>
     </div>
 
@@ -566,6 +580,7 @@
 
     <script>
         const USD_TO_RUB_RATE = 90.0;
+        const DISCOUNT_RATE = 50.0; // 10% off means paying 90%
 
         const langData = {
             en: {
@@ -575,7 +590,7 @@
                 optLowHigh: "Price, low to high",
                 optHighLow: "Price, high to low",
                 captionBy: "SONG 'LARPSHOT' by",
-                gameplayText: "CLICK ON THIS TEXT TO WATCH THE GAMEPLAY",
+                gameplayText: "CLICK ON THIS TEXT IF YOU WANT TO SEE THE GAMEPLAY",
                 footSupport: "Support",
                 footCreators: "For Creators",
                 footPolicies: "Policies",
@@ -611,7 +626,7 @@
                 optLowHigh: "Цена, по возрастанию",
                 optHighLow: "Цена, по убыванию",
                 captionBy: "ПЕСНЯ 'LARPSHOT' от",
-                gameplayText: "КЛИКНИ НА ЭТОТ ТЕКСТ ЧТОБЫ ПОСМОТРЕТЬ ГЕЙМПЛЕЙ",
+                gameplayText: "КЛИКНИ НА ЭТОТ ТЕКСТ, ЕСЛИ ХОЧЕШЬ ПОСМОТРЕТЬ ГЕЙМПЛЕЙ",
                 footSupport: "Поддержка",
                 footCreators: "Авторам",
                 footPolicies: "Правила",
@@ -677,7 +692,7 @@
         const currentTimeDisplay = document.getElementById('current-time');
         const durationDisplay = document.getElementById('duration');
 
-        function formatPrice(value) {
+        function formatSinglePrice(value) {
             if (currentLang === 'ru') {
                 const rubValue = value * USD_TO_RUB_RATE;
                 return rubValue.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " ₽";
@@ -693,14 +708,21 @@
                 card.className = 'product-card';
                 
                 const translatedName = langData[currentLang][product.nameKey] || product.nameKey;
-                const formattedPrice = formatPrice(product.basePriceUSD);
+                
+                const discountedPriceUSD = product.basePriceUSD * DISCOUNT_RATE;
+                
+                const formattedOriginal = formatSinglePrice(product.basePriceUSD);
+                const formattedDiscounted = formatSinglePrice(discountedPriceUSD);
 
                 card.innerHTML = `
                     <div class="product-image-wrapper">
                         <img src="${product.image}" alt="${translatedName}" onerror="this.style.backgroundColor='#eaeaea';">
                     </div>
                     <div class="product-title">${translatedName}</div>
-                    <div class="product-price">${formattedPrice}</div>
+                    <div class="product-price">
+                        <span class="price-original">${formattedOriginal}</span>
+                        <span class="price-discounted">${formattedDiscounted}</span>
+                    </div>
                 `;
                 
                 card.addEventListener('click', (e) => {
