@@ -562,7 +562,7 @@
         </div>
 
         <div class="gameplay-link-container">
-            <a href="https://www.youtube.com/watch?v=iMbXBBaLJ48" target="_blank" class="gameplay-link" id="gameplay-text">CLICK ON THIS TEXT TO WATCH THE GAMEPLAY</a>
+            <a href="https://www.youtube.com/watch?v=iMbXBBaLJ48" target="_blank" class="gameplay-link" id="gameplay-text">CLICK ON THIS TEXT IF YOU WANT TO SEE THE GAMEPLAY</a>
         </div>
     </div>
 
@@ -603,7 +603,7 @@
 
     <script>
         const USD_TO_RUB_RATE = 90.0;
-        const DISCOUNT_RATE = 69.0; // 10% off means paying 90%
+        const DISCOUNT_RATE = 0.90; // 10% off means paying 90%
 
         const langData = {
             en: {
@@ -613,7 +613,7 @@
                 optLowHigh: "Price, low to high",
                 optHighLow: "Price, high to low",
                 captionBy: "SONG 'LARPSHOT' by",
-                gameplayText: "CLICK ON THIS TEXT TO WATCH THE GAMEPLAY",
+                gameplayText: "CLICK ON THIS TEXT IF YOU WANT TO SEE THE GAMEPLAY",
                 footSupport: "Support",
                 footCreators: "For Creators",
                 footPolicies: "Policies",
@@ -640,7 +640,8 @@
                 p4: "(NEW DESIGN!!!) EVIL GIRLFRIEND IDLE SHIRT",
                 p5: "LARPMATCH DRESS",
                 p6: "LARPTRACTOR COFFEE CUP",
-                p7: "LARPTRACTOR DOUBLE SIDED WHITE MUG"
+                p7: "LARPTRACTOR DOUBLE SIDED WHITE MUG",
+                p8: "LARP ATTACK EVIL GIRLFRIEND DAKIMAKURA"
             },
             ru: {
                 prodCount: "7 товаров",
@@ -649,7 +650,7 @@
                 optLowHigh: "Цена, по возрастанию",
                 optHighLow: "Цена, по убыванию",
                 captionBy: "ПЕСНЯ 'LARPSHOT' от",
-                gameplayText: "КЛИКНИ НА ЭТОТ ТЕКСТ ЧТОБЫ ПОСМОТРЕТЬ ГЕЙМПЛЕЙ",
+                gameplayText: "КЛИКНИ НА ЭТОТ ТЕКСТ, ЕСЛИ ХОЧЕШЬ ПОСМОТРЕТЬ ГЕЙМПЛЕЙ",
                 footSupport: "Поддержка",
                 footCreators: "Авторам",
                 footPolicies: "Правила",
@@ -676,7 +677,8 @@
                 p4: "(НОВЫЙ ДИЗАЙН!!!) EVIL GIRLFRIEND IDLE ФУТБОЛКА",
                 p5: "LARPMATCH ПЛАТЬЕ",
                 p6: "LARPTRACTOR КОФЕЙНАЯ ЧАШКА",
-                p7: "LARPTRACTOR ДВУСТОРОННЯЯ БЕЛАЯ КРУЖКА"
+                p7: "LARPTRACTOR ДВУСТОРОННЯЯ БЕЛАЯ КРУЖКА",
+                p8: "LARP ATTACK EVIL GIRLFRIEND ДАКИМАКУРА"
             }
         };
 
@@ -689,7 +691,8 @@
             { id: 4, nameKey: "p4", basePriceUSD: 37472188.99, image: "NEWEVILGFBLACKSHIRT.png" },
             { id: 5, nameKey: "p5", basePriceUSD: 172.99, image: "LARPMATCHDRESS.png" },
             { id: 6, nameKey: "p6", basePriceUSD: 176476277176.99, image: "EVILPICOCOFFEECUP.png" },
-            { id: 7, nameKey: "p7", basePriceUSD: 149.99, image: "EVILPICOMUG.png" }
+            { id: 7, nameKey: "p7", basePriceUSD: 149.99, image: "EVILPICOMUG.png" },
+            { id: 8, nameKey: "p8", basePriceUSD: 299.99, image: "EVILGFLARPATTACKDAKIMAKURA.png" },
         ];
 
         let displayedProducts = [...originalProducts];
