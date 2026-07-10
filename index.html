@@ -520,7 +520,7 @@
         </div>
 
         <div class="store-controls">
-            <div class="product-count" id="prod-count-text">10 products</div>
+            <div class="product-count" id="prod-count-text">4 products</div>
             <div class="sort-filter">
                 <select name="sort" id="sort">
                     <option value="featured" id="opt-featured">Featured</option>
@@ -607,7 +607,7 @@
 
         const langData = {
             en: {
-                prodCount: "10 products",
+                prodCount: "4 products",
                 optFeatured: "Featured",
                 optBestselling: "Best selling",
                 optLowHigh: "Price, low to high",
@@ -634,19 +634,13 @@
                 ovContact: "you cannot, or watch my youtube larprruption videos idk lol",
                 ovMakeStore: "why would you create a shop if there's phantom larp's shop?",
 
-                p1: "EVIL BOYFRIEND SHIRT",
-                p2: "EVIL BOYFRIEND IDLE SHIRT",
-                p3: "EVIL GIRLFRIEND IDLE SHIRT",
-                p4: "(NEW DESIGN!!!) EVIL GIRLFRIEND IDLE SHIRT",
-                p5: "LARPMATCH DRESS",
-                p6: "LARPTRACTOR COFFEE CUP",
-                p7: "LARPTRACTOR DOUBLE SIDED WHITE MUG",
-                p8: "LARP ATTACK EVIL GIRLFRIEND DAKIMAKURA",
-                p9: "LARP ATTACK EVIL GIRLFRIEND PILLOW",
-                p10: "LARP ATTACK EVIL GIRLFRIEND BLANKET"
+                p1: "SOUL BF BABY BIB",
+                p2: "SOUL BF T-SHIRT",
+                p3: "SOUL BF KID CUP",
+                p4: "SOUL BF KID T-SHIRT",
             },
             ru: {
-                prodCount: "10 товаров",
+                prodCount: "4 товаров",
                 optFeatured: "Рекомендуемые",
                 optBestselling: "Хиты продаж",
                 optLowHigh: "Цена, по возрастанию",
@@ -673,32 +667,20 @@
                 ovContact: "никак нельзя, или посмотри мои видосы по larprruption на ютубе хз лол",
                 ovMakeStore: "зачем тебе создавать магазин, если уже есть phantom larp's shop?",
 
-                p1: "EVIL BOYFRIEND ФУТБОЛКА",
-                p2: "EVIL BOYFRIEND IDLE ФУТБОЛКА",
-                p3: "EVIL GIRLFRIEND IDLE ФУТБОЛКА",
-                p4: "(НОВЫЙ ДИЗАЙН!!!) EVIL GIRLFRIEND IDLE ФУТБОЛКА",
-                p5: "LARPMATCH ПЛАТЬЕ",
-                p6: "LARPTRACTOR КОФЕЙНАЯ ЧАШКА",
-                p7: "LARPTRACTOR ДВУСТОРОННЯЯ БЕЛАЯ КРУЖКА",
-                p8: "LARP ATTACK EVIL GIRLFRIEND ДАКИМАКУРА",
-                p9: "LARP ATTACK EVIL GIRLFRIEND ПОДУШКА",
-                p10: "LARP ATTACK EVIL GIRLFRIEND ОДЕЯЛО"
+                p1: "SOUL BF СЛЮНЯВЧИК",
+                p2: "SOUL BF ФУТБОЛКА",
+                p3: "РЕБЁНОК SOUL BF КРУЖКА",
+                p4: "РЕБЁНОК SOUL BF ФУТБОЛКА",
             }
         };
 
         let currentLang = 'en';
 
         const originalProducts = [
-            { id: 1, nameKey: "p1", basePriceUSD: 257.99, image: "EVILBFWHITESHIRT.png" },
-            { id: 2, nameKey: "p2", basePriceUSD: 28175.99, image: "EVILBFIDLEWHITESHIRT.png" },
-            { id: 3, nameKey: "p3", basePriceUSD: 372177.99, image: "EVILGFBLACKSHIRT.png" },
-            { id: 4, nameKey: "p4", basePriceUSD: 37472188.99, image: "NEWEVILGFBLACKSHIRT.png" },
-            { id: 5, nameKey: "p5", basePriceUSD: 172.99, image: "LARPMATCHDRESS.png" },
-            { id: 6, nameKey: "p6", basePriceUSD: 176476277176.99, image: "EVILPICOCOFFEECUP.png" },
-            { id: 7, nameKey: "p7", basePriceUSD: 149.99, image: "EVILPICOMUG.png" },
-            { id: 8, nameKey: "p8", basePriceUSD: 299.99, image: "EVILGFLARPATTACKDAKIMAKURA.png" },
-            { id: 9, nameKey: "p9", basePriceUSD: 99.99, image: "EVILGFLARPATTACKPILLOW.png" },
-            { id: 10, nameKey: "p10", basePriceUSD: 349.99, image: "EVILGFLARPATTACKBLANKET.png" },
+            { id: 1, nameKey: "p1", basePriceUSD: 259.99, image: "SOULBABYBIB.png" },
+            { id: 2, nameKey: "p2", basePriceUSD: 699.99, image: "SOULBFTSHIRT.png" },
+            { id: 3, nameKey: "p3", basePriceUSD: 399.99, image: "SOULKIDCUP.png" },
+            { id: 4, nameKey: "p4", basePriceUSD: 999.99, image: "SOULKIDTSHIRT.png" }
         ];
 
         let displayedProducts = [...originalProducts];
